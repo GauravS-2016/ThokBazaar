@@ -1,1 +1,1 @@
-# thokbaazar
+# thokbazaar
