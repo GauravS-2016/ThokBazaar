@@ -194,5 +194,3 @@ app.use((err, _req, res, _next) => {
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Thokbazaar API running on port ${PORT}`);
 });
-app.use((err,_req,res,_next)=>{ console.error(err); res.status(500).json({error:"Internal server error."}); });
-app.listen(PORT,()=>console.log(`Thokbazaar running at http://localhost:${PORT}`));
