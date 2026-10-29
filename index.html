@@ -599,25 +599,61 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-block:28px 40px;
   });
 
   /* ---------- boot ---------- */
-  fillStatic();renderAll();
-  try{user=await claude.use('user')}catch(e){user=null}
-  try{db=await claude.use('db')}catch(e){db=null}
-  if(user){
-    try{S.meId=await user.id()}catch(e){}
-    try{S.isAdmin=await user.canEdit()}catch(e){}
-    try{S.canWrite=(await user.can('data.write'))!==false}catch(e){}
-  }
-  var b=$('banner');
-  if(!db){b.hidden=false;b.innerHTML='<b>Preview mode.</b> Products cannot load or save in this view. Open the page signed in to claude.ai to see and add real listings.'}
-  else if(!S.canWrite){b.hidden=false;b.innerHTML='<b>You are browsing.</b> To add products or send requests, ask the site owner to share this page with you as a Contributor.'}
+  var API_BASE_URL = "https://thokbazaar.onrender.com";
+
+fillStatic();
+
+try {
+  var healthResponse = await fetch(API_BASE_URL + "/api/health");
+  if (!healthResponse.ok) throw new Error("Backend unavailable");
+
+  var results = await Promise.all([
+    fetch(API_BASE_URL + "/api/products"),
+    fetch(API_BASE_URL + "/api/categories"),
+    fetch(API_BASE_URL + "/api/requirements")
+  ]);
+
+  results.forEach(function (response) {
+    if (!response.ok) throw new Error("Could not load marketplace data");
+  });
+
+  var productData = await results[0].json();
+  var categoryData = await results[1].json();
+  var requirementData = await results[2].json();
+
+  S.products = productData.items || [];
+
+  S.custom = categoryData
+    .filter(function (c) {
+      return !BUILTIN.some(function (b) {
+        return b.id === c.id;
+      });
+    })
+    .map(function (c, i) {
+      return {
+        id: c.id,
+        name: c.name,
+        hue: c.hue == null ? 200 : c.hue,
+        p: i % 8
+      };
+    });
+
+  S.reqs = requirementData || [];
+
+  var banner = $("banner");
+  banner.hidden = true;
+
   renderAll();
-  if(db){
-    var onErr=function(){};
-    db.collection('products').onSnapshot(function(s){S.products=s.docs.map(function(d){var x=d.data();x.id=d.id;return x}).filter(function(x){return x.name&&x.price>0});renderAll()},onErr);
-    db.collection('categories').onSnapshot(function(s){S.custom=s.docs.map(function(d){var x=d.data();return {id:d.id,name:x.name,hue:x.hue==null?200:x.hue,p:hashOf(String(x.name))%8}}).filter(function(c){return c.name});renderAll()},onErr);
-    db.collection('enquiries').onSnapshot(function(s){S.enq=s.docs.map(function(d){return d.data()});renderDesk()},onErr);
-    db.collection('requirements').onSnapshot(function(s){S.reqs=s.docs.map(function(d){return d.data()});renderDesk()},onErr);
-  }
+
+} catch (error) {
+  console.error("ThokBazaar API error:", error);
+
+  var banner = $("banner");
+  banner.hidden = false;
+  banner.textContent =
+    "Could not connect to the marketplace. Please refresh and try again.";
+  renderAll();
+}
 })();
 </script>
 
