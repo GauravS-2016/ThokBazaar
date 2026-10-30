@@ -187,5 +187,5 @@ app.use((err, _req, res, _next) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Thokbazaar API running on port ${PORT}`);
+  console.log(`thokbazaar API running on port ${PORT}`);
 });
