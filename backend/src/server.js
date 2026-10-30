@@ -170,13 +170,8 @@ app.post("/api/requirements",(req,res)=>{
 });
 app.get("/api/requirements",(_req,res)=>res.json({requirements:[...db.requirements].sort((a,b)=>String(b.ts).localeCompare(String(a.ts)))}));
 
-app.get("/", (_req, res) => {
-  res.json({
-    ok: true,
-    service: "thokbazaar.store",
-    message: "API server is running",
-    health: "/api/health"
-  });
+app.get("/", (req, res) => {
+res.redirect("https://thokbazaar.store");
 });
 
 app.use((req, res) => {
