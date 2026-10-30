@@ -1,5 +1,5 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><meta name="description" content="Thokbazar wholesale B2B marketplace for buyers and sellers."><meta name="theme-color" content="#0D6B57"></head><body>
-<title>Thokbazar — Wholesale Marketplace</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><meta name="description" content="Thokbazaar wholesale B2B marketplace for buyers and sellers."><meta name="theme-color" content="#0D6B57"></head><body>
+<title>Thokbazaar — Wholesale Marketplace</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: trade-counter feel. Sticky header (search + Sell / Post requirement), hero with buyer requirement slip, category tiles, live listings with filters, seller desk, supplier list, 3-step process. */
@@ -175,7 +175,7 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-block:28px 40px;
 
 <header class="top">
   <div class="bar">
-    <a class="logo" href="#top" aria-label="thokbazar.com home"><b>thokbazar</b><span>.com</span></a>
+    <a class="logo" href="#top" aria-label="thokbazaar.store home"><b>thokbazaar</b><span>.store</span></a>
     <form class="search" id="searchForm" role="search">
       <select id="searchCat" aria-label="Category"></select>
       <input id="searchQ" type="search" placeholder="Search products, suppliers, cities" aria-label="Search products">
@@ -261,7 +261,7 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-block:28px 40px;
   </section>
 
   <section class="block" aria-labelledby="supH">
-    <div class="head"><div><h2 id="supH">Sellers on Thokbazar</h2><p>Built from the products people have listed.</p></div></div>
+    <div class="head"><div><h2 id="supH">Sellers on Thokbazaar</h2><p>Built from the products people have listed.</p></div></div>
     <div class="sups" id="sups"></div>
   </section>
 
@@ -276,7 +276,7 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-block:28px 40px;
 </main>
 
 <footer class="wrap">
-  <div><strong style="font-family:var(--font-display);color:var(--ink)">thokbazar.com</strong><br>Demo marketplace. Products marked Sample are made-up examples.</div>
+  <div><strong style="font-family:var(--font-display);color:var(--ink)">thokbazaar.store</strong><br>Demo marketplace. Products marked Sample are made-up examples.</div>
   <div>Buyers · Sellers · Help · Terms</div>
 </footer>
 
@@ -416,7 +416,7 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-block:28px 40px;
     try{
       var result=await api('/auth/'+action,{method:'POST',body:JSON.stringify({name:name,email:email,password:password,businessName:businessName,city:city})});
       authToken=result.token; store('tb_token',authToken); currentUser=result.user; S.meId=String(currentUser.id);
-      setAuthUI(); await loadAll(); toast(action==='register'?'Account created. Welcome to Thokbazar!':'Signed in successfully.');
+      setAuthUI(); await loadAll(); toast(action==='register'?'Account created. Welcome to Thokbazaar!':'Signed in successfully.');
     }catch(e){toast(e.message || 'Could not sign in.');}
   }
   var S={products:[],custom:[],enq:[],reqs:[],cat:'all',q:'',city:'all',sort:'new',showAll:false,
@@ -495,7 +495,7 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-block:28px 40px;
         '<button type="button" class="btn main" data-quote="'+esc(p.id)+'">Get best price</button>'+
         (canManage(p)?'<div class="manage"><button type="button" class="btn sm ghost" data-edit="'+esc(p.id)+'">Edit</button><button type="button" class="btn sm danger" data-del="'+esc(p.id)+'">'+(del?'Sure? Remove':'Remove')+'</button></div>':'')+
         '</div></article>';
-    }).join(''):'<div class="empty" style="grid-column:1/-1"><p>'+(S.products.length?'No products match yet. Try fewer words or another category.':'No products yet. Be the first seller on Thokbazar.')+'</p><button type="button" class="btn" data-sell="1">Add your product</button></div>';
+    }).join(''):'<div class="empty" style="grid-column:1/-1"><p>'+(S.products.length?'No products match yet. Try fewer words or another category.':'No products yet. Be the first seller on Thokbazaar.')+'</p><button type="button" class="btn" data-sell="1">Add your product</button></div>';
   }
   function renderStats(){
     var sup={};S.products.forEach(function(p){sup[p.supplier]=1});
